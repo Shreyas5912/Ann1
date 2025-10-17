@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our 5th Anniversary Journey</title>
+    <style>
+      /* --- Google Fonts --- */
+      @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500&display=swap");
+
+      /* --- Global Styles & Variables --- */
+      :root {
+        --bg-color: #fff0f5; /* Lavender Blush */
+        --primary-color: #ffb6c1; /* Light Pink */
+        --secondary-color: #ffdab9; /* Peach Puff */
+        --accent-color: #e6e6fa; /* Lavender */
+        --text-color: #5d5d5d;
+        --heading-font: "Pacifico", cursive;
+        --body-font: "Quicksand", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--body-font);
+        background: linear-gradient(
+          135deg,
+          var(--bg-color),
+          var(--accent-color)
+        );
+        color: var(--text-color);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* --- Page Container --- */
+      .container {
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .page {
+        display: none; /* Hide pages by default */
+        flex-direction: column;
+        align-items: center;
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      .page.active {
+        display: flex;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* --- Typography --- */
+      h1,
+      h2 {
+        font-family: var(--heading-font);
+        color: var(--primary-color);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 2.8rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-top: 10px;
+      }
+
+      p,
+      li {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 20px 0;
+      }
+
+      /* --- Buttons --- */
+      .btn-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+      }
+
+      .btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5);
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 182, 193, 0.7);
+      }
+
+      .btn.secondary {
+        background-color: #f1f1f1;
+        color: var(--text-color);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn.secondary:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* --- Vows List --- */
+      .vows-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+        text-align: left;
+        max-width: 90%;
+      }
+
+      .vows-list li {
+        margin: 10px 0;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .vows-list li::before {
+        content: "💍";
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      /* --- Popups --- */
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none; /* Hidden by default */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .popup.active {
+        display: flex;
+      }
+
+      .popup-content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        animation: popup-scale 0.4s ease-out;
+      }
+
+      .popup-content p {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+
+      @keyframes popup-scale {
+        from {
+          transform: scale(0.7);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* --- Certificate --- */
+      .certificate {
+        background: white;
+        border: 10px solid var(--bg-color);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .certificate-title {
+        font-family: var(--heading-font);
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+
+      .certificate-names {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin: 20px 0;
+      }
+
+      .certificate-note {
+        font-style: italic;
+        margin-top: 20px;
+        font-size: 1rem;
+      }
+
+      /* --- Animated Background Hearts --- */
+      .hearts-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        list-style: none;
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 182, 193, 0.2);
+        animation: animate-heart 25s linear infinite;
+        bottom: -150px;
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 182, 193, 0.2);
+      }
+
+      .heart::before {
+        top: -10px;
+        left: 0;
+      }
+      .heart::after {
+        top: 0;
+        left: -10px;
+      }
+
+      .heart:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+      }
+      .heart:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+      }
+      .heart:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+      }
+      .heart:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+      }
+      .heart:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+      }
+      .heart:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+      }
+      .heart:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+      }
+      .heart:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+      }
+      .heart:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+      }
+      .heart:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+      }
+
+      @keyframes animate-heart {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
+
+      /* --- Cursor Trail --- */
+      .cursor-trail {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease, opacity 0.5s ease;
+        opacity: 0;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="hearts-bg">
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+      <li class="heart"></li>
+    </ul>
+
+    <div class="container">
+      <div id="home-page" class="page active">
+        <h1>Happy 5th Anniversary, My Love 💖</h1>
+        <h2>
+          5 wonderful years together, overcoming every hurdle hand in hand.
+        </h2>
+        <p>
+          From our first shy hello to this beautiful moment, it feels like a
+          lifetime of happiness has passed in the blink of an eye. We've built a
+          world of our own, filled with laughter, endless support, and a love
+          that grows stronger with every challenge we face. Thank you for being
+          my rock, my joy, and my everything.
+        </p>
+        <button class="btn" onclick="showPage('vows-page')">Next</button>
+      </div>
+
+      <div id="vows-page" class="page">
+        <h1>Our Vows 💍</h1>
+        <h2>Promises for today, tomorrow, and always.</h2>
+        <ul class="vows-list">
+          <li>To love and cherish you forever.</li>
+          <li>To support you in all life’s challenges.</li>
+          <li>To communicate honestly and openly.</li>
+          <li>To laugh with you and comfort you.</li>
+          <li>To respect and honor you always.</li>
+          <li>To grow together in every way.</li>
+          <li>To create a home filled with love and joy.</li>
+        </ul>
+        <div class="btn-container">
+          <button class="btn" onclick="showPage('proposal-page')">
+            Yes, I accept
+          </button>
+          <button class="btn secondary" onclick="showPopup('vows-popup')">
+            No
+          </button>
+        </div>
+      </div>
+
+      <div id="proposal-page" class="page">
+        <h1>A Special Question for My Love 💌</h1>
+        <p>
+          You are the most incredible person I have ever known. Every day with
+          you is a gift, and I want to spend all my tomorrows with you.
+        </p>
+        <h2>Will you marry me and continue this beautiful journey together?</h2>
+        <div class="btn-container">
+          <button class="btn" onclick="showPage('certificate-page')">
+            YES!
+          </button>
+          <button class="btn secondary" onclick="showPopup('proposal-popup')">
+            No
+          </button>
+        </div>
+      </div>
+
+      <div id="certificate-page" class="page">
+        <div class="certificate">
+          <h1 class="certificate-title">Marriage Certificate of Love</h1>
+          <p>This certifies that</p>
+          <h2 class="certificate-names">[Shreyas] &amp; [Sharvari]</h2>
+          <p>Have promised their hearts to one another on this day</p>
+          <p><strong>October 17, 2025</strong></p>
+          <p class="certificate-note">
+            "Celebrating our love and the beautiful promise of forever."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="vows-popup" class="popup">
+      <div class="popup-content">
+        <p>No is not an option! ❤️</p>
+        <button class="btn" onclick="hidePopup('vows-popup')">
+          Okay, fine!
+        </button>
+      </div>
+    </div>
+    <div id="proposal-popup" class="popup">
+      <div class="popup-content">
+        <p>No is not an option! Let’s make it official! 💖</p>
+        <button class="btn" onclick="hidePopup('proposal-popup')">
+          Okay, you win!
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // --- Page Navigation ---
+      let currentPage = "home-page";
+
+      function showPage(pageId) {
+        const currentPageElement = document.getElementById(currentPage);
+        if (currentPageElement) {
+          currentPageElement.classList.remove("active");
+        }
+
+        const newPageElement = document.getElementById(pageId);
+        if (newPageElement) {
+          newPageElement.classList.add("active");
+          currentPage = pageId;
+        }
+
+        // Trigger confetti when certificate is shown
+        if (pageId === "certificate-page") {
+          createConfetti();
+        }
+      }
+
+      // --- Popups ---
+      function showPopup(popupId) {
+        document.getElementById(popupId).classList.add("active");
+      }
+
+      function hidePopup(popupId) {
+        document.getElementById(popupId).classList.remove("active");
+      }
+
+      // --- Cursor Trail Effect ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const trailCount = 10;
+        const trailElements = [];
+
+        for (let i = 0; i < trailCount; i++) {
+          const el = document.createElement("div");
+          el.classList.add("cursor-trail");
+          document.body.appendChild(el);
+          trailElements.push(el);
+        }
+
+        let lastX = -100,
+          lastY = -100;
+
+        window.addEventListener("mousemove", (e) => {
+          lastX = e.clientX;
+          lastY = e.clientY;
+        });
+
+        function renderTrail() {
+          let currentX = lastX;
+          let currentY = lastY;
+
+          trailElements.forEach((el, index) => {
+            const nextX = parseFloat(el.style.left || currentX);
+            const nextY = parseFloat(el.style.top || currentY);
+
+            el.style.opacity = "1";
+            el.style.left = `${currentX}px`;
+            el.style.top = `${currentY}px`;
+            el.style.transform = `scale(${1 - index / trailCount})`;
+
+            const dx = currentX - nextX;
+            const dy = currentY - nextY;
+
+            currentX -= dx * 0.1;
+            currentY -= dy * 0.1;
+          });
+
+          requestAnimationFrame(renderTrail);
+        }
+        renderTrail();
+      });
+
+      // --- Confetti Effect for Certificate ---
+      function createConfetti() {
+        const container = document.getElementById("certificate-page");
+        for (let i = 0; i < 100; i++) {
+          const confetti = document.createElement("div");
+          confetti.style.position = "absolute";
+          confetti.style.width = `${Math.random() * 10 + 5}px`;
+          confetti.style.height = confetti.style.width;
+          confetti.style.backgroundColor = `hsl(${
+            Math.random() * 360
+          }, 100%, 75%)`;
+          confetti.style.top = `${Math.random() * -200}px`;
+          confetti.style.left = `${Math.random() * 100}%`;
+          confetti.style.opacity = "1";
+          confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+          container.appendChild(confetti);
+
+          animateConfetti(confetti);
+        }
+      }
+
+      function animateConfetti(element) {
+        const duration = Math.random() * 3 + 2; // 2-5 seconds
+        const xEnd = Math.random() * 200 - 100; // -100 to 100 px horizontal movement
+
+        element.animate(
+          [
+            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+            {
+              transform: `translate(${xEnd}px, ${
+                window.innerHeight
+              }px) rotate(${Math.random() * 720}deg)`,
+              opacity: 0,
+            },
+          ],
+          {
+            duration: duration * 1000,
+            easing: "linear",
+          }
+        ).onfinish = () => element.remove();
+      }
+    </script>
+  </body>
+</html>
